@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "670043907168",
+    "project_id": "ilunne-app",
+    "storage_bucket": "ilunne-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:670043907168:android:32deb7e8bcb7300d8d4f05",
+        "android_client_info": {
+          "package_name": "com.johnlennonlobo.appilunne"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "670043907168-8q0to7o5dm40k2c8aaekjpm320ot029k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.johnlennonlobo.appilunne",
+            "certificate_hash": "6f5a99c8b92d2553cfb48e9150381a3d52f5ac51"
+          }
+        },
+        {
+          "client_id": "670043907168-beu1le6sd07gkef4e0l2d6h001b81hs6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBH9Bf-Jz8Yu10b9JptGwR9xJSpRn5-fPg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "670043907168-beu1le6sd07gkef4e0l2d6h001b81hs6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
