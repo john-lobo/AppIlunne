@@ -8,8 +8,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_logo_round"
         android:supportsRtl="true"
-            android:theme="@style/Theme.AppIlunne">
-
+        android:theme="@style/Theme.AppIlunne">
+        <activity android:name=".ui.activitys.SplashActivity"></activity>
         <activity android:name=".ui.activitys.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
