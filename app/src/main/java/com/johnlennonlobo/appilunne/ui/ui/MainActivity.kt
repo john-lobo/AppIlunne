@@ -1,4 +1,4 @@
-package com.johnlennonlobo.appilunne.ui.activity
+package com.johnlennonlobo.appilunne.ui.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
