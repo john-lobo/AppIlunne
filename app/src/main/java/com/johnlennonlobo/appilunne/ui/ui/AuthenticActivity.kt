@@ -1,12 +1,12 @@
 package com.johnlennonlobo.appilunne.ui.ui
 
 import android.app.ActionBar
+import android.content.Context
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.johnlennonlobo.appilunne.R
 import com.johnlennonlobo.appilunne.model.data.AppDataSource
 import com.johnlennonlobo.appilunne.ui.helper.ConfigFirebase
@@ -15,12 +15,10 @@ import com.johnlennonlobo.appilunne.ui.presenter.login.LoginPresenter
 import com.johnlennonlobo.appilunne.utils.Constants.Companion.MARGIN_BOTTOM
 import com.johnlennonlobo.appilunne.utils.Constants.Companion.MARGIN_LEFT
 import com.johnlennonlobo.appilunne.utils.Constants.Companion.MARGIN_RIGHT
-import com.johnlennonlobo.appilunne.utils.Constants.Companion.MARGIN_TOP
 import kotlinx.android.synthetic.main.authentic_activity.*
 
 
 class AuthenticActivity : AbstractActivity(), ViewHome.View {
-    private lateinit var params: LinearLayout.LayoutParams
     private lateinit var presenter: LoginPresenter
     private lateinit var authentication: FirebaseAuth
 
@@ -59,22 +57,24 @@ class AuthenticActivity : AbstractActivity(), ViewHome.View {
     //TODO My Functions created in this
     private fun showMessage(message: String) {
         Toast.makeText(
-                this,
-                message,
-                Toast.LENGTH_SHORT).show()
+            this,
+            message,
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     private fun signOrRegister() {
         with(btnSignOrRegister){
             setOnClickListener {
+
                 val email = edtEmailLogin_ID.text.toString()
                 val senha = edtSenhalLogin_ID.text.toString()
                 val typeAccess = switch1.isChecked
 
                 presenter.request(email, senha, typeAccess)
+                edtEmailLogin_ID.layoutParams = configLayoutParams(true)
 
-                configLayoutParams(true)
-                showLogo(true)
+
             }
         }
         with(switch1){
@@ -90,42 +90,50 @@ class AuthenticActivity : AbstractActivity(), ViewHome.View {
     }
 
     private fun configEdtEmail() {
-        configLayoutParams()
 
         with(edtEmailLogin_ID) {
 
             onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
                         if (hasFocus) {
-                            showLogo()
+                            layoutParams = configLayoutParams(false)
                         }
                     }
-
             setOnClickListener {
-                showLogo()
+                layoutParams = configLayoutParams(false)
             }
 
-            layoutParams = params
         }
 
 
     }
 
-    private fun configLayoutParams(
-            modify: Boolean=false,
-    ){
-        this.params = LinearLayout.LayoutParams(
-                ActionBar.LayoutParams.MATCH_PARENT,
-                ActionBar.LayoutParams.WRAP_CONTENT)
+    private fun configLayoutParams(modify: Boolean): LinearLayout.LayoutParams {
 
-        if (modify == false) { MARGIN_TOP = 25 }
+        val params: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+            ActionBar.LayoutParams.MATCH_PARENT,
+            ActionBar.LayoutParams.WRAP_CONTENT
+        )
+        var marginTop: Int
+        when {
+            modify -> {
+                showLogo()
+                marginTop = 25
+            }
+            else -> {
+                marginTop = 300
+                showLogo(false)
+            }
+        }
 
         params.setMargins(
-                MARGIN_RIGHT, MARGIN_TOP,
-                MARGIN_LEFT, MARGIN_BOTTOM)
+            MARGIN_RIGHT, marginTop,
+            MARGIN_LEFT, MARGIN_BOTTOM
+        )
+        return params
     }
 
-    private fun showLogo(show:Boolean = false){
-        if(show == true){
+    private fun showLogo(show: Boolean = true){
+        if(show){
             imageView.visibility = View.VISIBLE
         }else{
             imageView.visibility = View.GONE

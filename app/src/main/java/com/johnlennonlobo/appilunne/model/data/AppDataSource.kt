@@ -3,6 +3,7 @@ package com.johnlennonlobo.appilunne.model.data
 import android.content.Context
 import android.content.Intent
 import com.google.firebase.auth.*
+import com.johnlennonlobo.appilunne.MainHomeActivity
 import com.johnlennonlobo.appilunne.ui.presenter.login.LoginHome
 import com.johnlennonlobo.appilunne.ui.ui.MainActivity
 import com.johnlennonlobo.appilunne.utils.Constants.Companion.DELAY
@@ -49,7 +50,8 @@ class AppDataSource(val authentication: FirebaseAuth,val context: Context) {
                         authentication.signInWithEmailAndPassword(email,senha).addOnCompleteListener { task ->
                          if(task.isSuccessful){
                              calback.onSuccess("Usuario logado")
-                             val intent = Intent(context.applicationContext, MainActivity::class.java)
+                             val intent = Intent(context.applicationContext, MainHomeActivity
+                             ::class.java)
                              context.startActivity(intent)
                          }else{
                              try {
