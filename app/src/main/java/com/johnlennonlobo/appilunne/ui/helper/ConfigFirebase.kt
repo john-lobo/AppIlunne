@@ -1,8 +1,10 @@
 package com.johnlennonlobo.appilunne.ui.helper
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
@@ -29,9 +31,7 @@ class ConfigFirebase {
 
         // refencia do firebase
         fun getFirebaseAuthentication(): FirebaseAuth{
-            if(referenceAuthentication == null){
-                referenceAuthentication = FirebaseAuth.getInstance()
-            }
+                referenceAuthentication = Firebase.auth
             return referenceAuthentication
         }
 
