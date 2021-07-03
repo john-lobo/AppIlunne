@@ -1,4 +1,4 @@
-package com.johnlennonlobo.appilunne.ui.helper
+package com.johnlennonlobo.appilunne.helper
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth

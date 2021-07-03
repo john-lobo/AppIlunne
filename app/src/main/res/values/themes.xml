@@ -3,7 +3,7 @@
     <style name="Theme.AppIlunne" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryVariant">@color/rosafraco</item>
+        <item name="colorPrimaryVariant">@color/rosaforte</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/rosaforte</item>

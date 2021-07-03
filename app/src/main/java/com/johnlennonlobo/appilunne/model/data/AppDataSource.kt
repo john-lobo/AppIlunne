@@ -3,9 +3,8 @@ package com.johnlennonlobo.appilunne.model.data
 import android.content.Context
 import android.content.Intent
 import com.google.firebase.auth.*
-import com.johnlennonlobo.appilunne.MainHomeActivity
-import com.johnlennonlobo.appilunne.ui.presenter.login.LoginHome
-import com.johnlennonlobo.appilunne.ui.ui.MainActivity
+import com.johnlennonlobo.appilunne.ui.activity.main_home.MainHomeActivity
+import com.johnlennonlobo.appilunne.presenter.login.LoginHome
 import com.johnlennonlobo.appilunne.utils.Constants.Companion.DELAY
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -13,7 +12,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
-class AppDataSource(val authentication: FirebaseAuth,val context: Context) {
+class AppDataSource(val authentication: FirebaseAuth, val context: Context) {
 
     fun getAuthentication(
             calback: LoginHome.Presenter,
@@ -45,22 +44,20 @@ class AppDataSource(val authentication: FirebaseAuth,val context: Context) {
                             }
                             calback.onComplete()
                         }
-                    }
-                    else{
-                        authentication.signInWithEmailAndPassword(email,senha).addOnCompleteListener { task ->
-                         if(task.isSuccessful){
-                             calback.onSuccess("Usuario logado")
-                             val intent = Intent(context.applicationContext, MainHomeActivity
-                             ::class.java)
-                             context.startActivity(intent)
-                         }else{
-                             try {
-                                 throw task.exception!!
-                             }
-                            catch (error: Exception) {
-                                 calback.onError("Erro ao logar conta ${error.message}")
-                             }
-                         }
+                    } else {
+                        authentication.signInWithEmailAndPassword(email, senha).addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                calback.onSuccess("Usuario logado")
+                                val intent=Intent(context.applicationContext, MainHomeActivity
+                                ::class.java)
+                                context.startActivity(intent)
+                            } else {
+                                try {
+                                    throw task.exception!!
+                                } catch (error: Exception) {
+                                    calback.onError("Erro ao logar conta ${error.message}")
+                                }
+                            }
                         }
                         calback.onComplete()
                     }

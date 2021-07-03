@@ -1,4 +1,4 @@
-package com.johnlennonlobo.appilunne.ui.slideshow
+package com.johnlennonlobo.appilunne.ui.fragment.slideshow
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

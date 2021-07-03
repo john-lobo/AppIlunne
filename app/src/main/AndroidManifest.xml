@@ -8,21 +8,26 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_logo_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppIlunne" >
+        android:theme="@style/Theme.AppIlunne">
         <activity
-            android:name=".MainHomeActivity"
+            android:name=".ui.activity.main_home.MainHomeActivity"
             android:label="@string/title_activity_main_home"
             android:theme="@style/Theme.AppIlunne.NoActionBar" >
         </activity>
-        <activity android:name=".ui.ui.AuthenticActivity" />
-        <activity android:name=".ui.ui.SplashActivity" >
+
+        <activity
+            android:name="com.johnlennonlobo.appilunne.ui.activity.login.LoginActivity"/>
+
+        <activity
+            android:name="com.johnlennonlobo.appilunne.ui.activity.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.ui.MainActivity" />
+        <activity
+            android:name="com.johnlennonlobo.appilunne.ui.activity.main.MainActivity" />
     </application>
 
 </manifest>

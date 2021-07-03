@@ -1,4 +1,4 @@
-package com.johnlennonlobo.appilunne.ui.ui
+package com.johnlennonlobo.appilunne.ui.activity.splash
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import com.johnlennonlobo.appilunne.R
+import com.johnlennonlobo.appilunne.ui.activity.login.LoginActivity
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +23,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun openAuthentic() {
-        startActivity(Intent(this,AuthenticActivity::class.java))
+        startActivity(Intent(this, LoginActivity::class.java))
         finish()
 
     }

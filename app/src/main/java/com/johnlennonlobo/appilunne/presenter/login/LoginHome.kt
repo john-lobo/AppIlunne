@@ -1,8 +1,4 @@
-package com.johnlennonlobo.appilunne.ui.presenter.login
-
-import android.content.Context
-import com.johnlennonlobo.appilunne.model.data.AppDataSource
-import com.johnlennonlobo.appilunne.model.entity.Usuario
+package com.johnlennonlobo.appilunne.presenter.login
 
 interface LoginHome {
     interface Presenter{

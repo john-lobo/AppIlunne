@@ -1,10 +1,7 @@
-package com.johnlennonlobo.appilunne.ui.presenter.login
+package com.johnlennonlobo.appilunne.presenter.login
 
-import android.content.Context
-import android.content.Intent
 import com.johnlennonlobo.appilunne.model.data.AppDataSource
-import com.johnlennonlobo.appilunne.ui.presenter.ViewHome
-import com.johnlennonlobo.appilunne.ui.ui.MainActivity
+import com.johnlennonlobo.appilunne.presenter.ViewHome
 
 class LoginPresenter(
         val view : ViewHome.View,

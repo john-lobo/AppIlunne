@@ -1,4 +1,4 @@
-package com.johnlennonlobo.appilunne.ui.presenter
+package com.johnlennonlobo.appilunne.presenter
 
 interface ViewHome {
 

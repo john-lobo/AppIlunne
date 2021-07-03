@@ -1,4 +1,4 @@
-package com.johnlennonlobo.appilunne.ui.home
+package com.johnlennonlobo.appilunne.ui.fragment.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

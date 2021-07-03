@@ -1,29 +1,28 @@
-package com.johnlennonlobo.appilunne.ui.ui
+package com.johnlennonlobo.appilunne.ui.activity.login
 
 import android.app.ActionBar
-import android.content.Context
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.johnlennonlobo.appilunne.R
 import com.johnlennonlobo.appilunne.model.data.AppDataSource
-import com.johnlennonlobo.appilunne.ui.helper.ConfigFirebase
-import com.johnlennonlobo.appilunne.ui.presenter.ViewHome
-import com.johnlennonlobo.appilunne.ui.presenter.login.LoginPresenter
+import com.johnlennonlobo.appilunne.helper.ConfigFirebase
+import com.johnlennonlobo.appilunne.presenter.ViewHome
+import com.johnlennonlobo.appilunne.presenter.login.LoginPresenter
+import com.johnlennonlobo.appilunne.ui.activity.AbstractActivity
 import com.johnlennonlobo.appilunne.utils.Constants.Companion.MARGIN_BOTTOM
 import com.johnlennonlobo.appilunne.utils.Constants.Companion.MARGIN_LEFT
 import com.johnlennonlobo.appilunne.utils.Constants.Companion.MARGIN_RIGHT
-import kotlinx.android.synthetic.main.authentic_activity.*
+import kotlinx.android.synthetic.main.login_activity.*
 
 
-class AuthenticActivity : AbstractActivity(), ViewHome.View {
+class LoginActivity : AbstractActivity(), ViewHome.View {
     private lateinit var presenter: LoginPresenter
     private lateinit var authentication: FirebaseAuth
 
     //TODO implements AbstractActivity
-    override fun getLayout(): Int =R.layout.authentic_activity
+    override fun getLayout(): Int =R.layout.login_activity
 
     override fun getObject() {
         supportActionBar?.hide()

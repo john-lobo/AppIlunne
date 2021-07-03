@@ -1,4 +1,4 @@
-package com.johnlennonlobo.appilunne.ui.ui
+package com.johnlennonlobo.appilunne.ui.activity
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes

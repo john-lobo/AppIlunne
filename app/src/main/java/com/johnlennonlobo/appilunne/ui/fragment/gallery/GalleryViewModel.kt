@@ -1,4 +1,4 @@
-package com.johnlennonlobo.appilunne.ui.gallery
+package com.johnlennonlobo.appilunne.ui.fragment.gallery
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
