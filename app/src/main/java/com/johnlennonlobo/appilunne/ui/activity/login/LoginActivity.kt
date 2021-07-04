@@ -1,7 +1,10 @@
 package com.johnlennonlobo.appilunne.ui.activity.login
 
 import android.app.ActionBar
+import android.content.Context
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
@@ -32,7 +35,7 @@ class LoginActivity : AbstractActivity(), ViewHome.View {
         val dataSource = AppDataSource(authentication, this)
         presenter = LoginPresenter(this, dataSource)
         signOrRegister()
-        configEdtEmail()
+        configEdts()
 
     }
 
@@ -65,19 +68,23 @@ class LoginActivity : AbstractActivity(), ViewHome.View {
     private fun signOrRegister() {
         with(btnSignOrRegister){
             setOnClickListener {
-
                 val email = edtEmailLogin_ID.text.toString()
                 val senha = edtSenhalLogin_ID.text.toString()
                 val typeAccess = switch1.isChecked
 
                 presenter.request(email, senha, typeAccess)
-                edtEmailLogin_ID.layoutParams = configLayoutParams(true)
 
+                edtEmailLogin_ID.layoutParams = configLayoutParams(true)
+                hideKeyBoard()
 
             }
         }
         with(switch1){
             setOnClickListener {
+
+                hideKeyBoard()
+                edtEmailLogin_ID.layoutParams = configLayoutParams(true)
+
                 if(isChecked){
                     btnSignOrRegister.text = "CADASTRAR"
                 }else{
@@ -86,12 +93,19 @@ class LoginActivity : AbstractActivity(), ViewHome.View {
             }
 
         }
+
     }
 
-    private fun configEdtEmail() {
+    private fun View.hideKeyBoard() {
+
+        // esconder teclado
+        val hideKeyBoard=getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        hideKeyBoard.hideSoftInputFromWindow(windowToken, 0)
+    }
+
+    private fun configEdts() {
 
         with(edtEmailLogin_ID) {
-
             onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
                         if (hasFocus) {
                             layoutParams = configLayoutParams(false)
@@ -103,6 +117,18 @@ class LoginActivity : AbstractActivity(), ViewHome.View {
 
         }
 
+        with(edtSenhalLogin_ID) {
+
+            onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    configLayoutParams(false)
+                }
+            }
+            setOnClickListener {
+                edtEmailLogin_ID.layoutParams = configLayoutParams(false)
+            }
+
+        }
 
     }
 
@@ -119,7 +145,7 @@ class LoginActivity : AbstractActivity(), ViewHome.View {
                 marginTop = 25
             }
             else -> {
-                marginTop = 300
+                marginTop = 100
                 showLogo(false)
             }
         }
