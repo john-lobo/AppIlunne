@@ -1,4 +1,4 @@
-package com.johnlennonlobo.appilunne.presenter.login
+package com.johnlennonlobo.appilunne.ui.activity.login.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -13,5 +13,4 @@ class LoginViewModelFactory constructor(private val repository: FirebaseAuth): V
                 throw IllegalArgumentException("ViewModel Not Found")
             }
         }
-
     }

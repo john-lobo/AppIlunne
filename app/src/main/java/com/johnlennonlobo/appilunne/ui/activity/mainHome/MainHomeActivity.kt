@@ -1,4 +1,4 @@
-package com.johnlennonlobo.appilunne.ui.activity.main_home
+package com.johnlennonlobo.appilunne.ui.activity.mainHome
 import android.os.Bundle
 import android.view.Menu
 import com.google.android.material.floatingactionbutton.FloatingActionButton

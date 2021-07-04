@@ -9,9 +9,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.johnlennonlobo.appilunne.R
-import com.johnlennonlobo.appilunne.presenter.login.LoginViewModel
-import com.johnlennonlobo.appilunne.presenter.login.LoginViewModelFactory
-import com.johnlennonlobo.appilunne.rest.ConfigFirebase
+import com.johnlennonlobo.appilunne.ui.activity.login.viewModel.LoginViewModel
+import com.johnlennonlobo.appilunne.ui.activity.login.viewModel.LoginViewModelFactory
+import com.johnlennonlobo.appilunne.repository.ConfigFirebase
 import com.johnlennonlobo.appilunne.ui.activity.AbstractActivity
 import com.johnlennonlobo.appilunne.utils.Constants.Companion.MARGIN_BOTTOM
 import com.johnlennonlobo.appilunne.utils.Constants.Companion.MARGIN_LEFT
@@ -26,16 +26,14 @@ class LoginActivity : AbstractActivity() {
 
     //TODO implements AbstractActivity
     override fun getLayout(): Int =R.layout.login_activity
+
     override fun getObject() {
         supportActionBar?.hide()
-
         authentication = ConfigFirebase.getFirebaseAuthentication()
         viewModel=ViewModelProvider(this, LoginViewModelFactory(authentication)).get(
             LoginViewModel::class.java
         )
-
-        signOrRegister()
-        configEdts()
+        actionViews()
     }
 
     override fun onStart() {
@@ -48,91 +46,78 @@ class LoginActivity : AbstractActivity() {
         })
     }
 
-    private fun signOrRegister() {
-        with(btnSignOrRegister){
+    private fun actionViews() {
+
+        with(btnSignOrRegister) {
             setOnClickListener {
+                val email=edtEmailLogin_ID.text.toString()
+                val senha=edtSenhalLogin_ID.text.toString()
+                val typeAccess=switch1.isChecked
 
-                val email = edtEmailLogin_ID.text.toString()
-                val senha = edtSenhalLogin_ID.text.toString()
-                val typeAccess = switch1.isChecked
+                viewModel.getAuthentication(this@LoginActivity, email, senha, typeAccess)
 
-                viewModel.getAuthentication(this@LoginActivity,email, senha, typeAccess)
-
-                edtEmailLogin_ID.layoutParams = configLayoutParams(true)
+                edtEmailLogin_ID.layoutParams=configLayoutParams(true)
                 hideKeyBoard()
-
             }
         }
 
-        with(switch1){
+        with(switch1) {
             setOnClickListener {
-
                 hideKeyBoard()
-                edtEmailLogin_ID.layoutParams = configLayoutParams(true)
-
-                if(isChecked){
-                    btnSignOrRegister.text = "CADASTRAR"
-                }else{
-                    btnSignOrRegister.text = "ACESSAR"
+                when {
+                    isChecked -> {
+                        btnSignOrRegister.text="CADASTRAR"
+                    }
+                    else -> {
+                        btnSignOrRegister.text="ACESSAR"
+                    }
                 }
             }
-
         }
 
-    }
-
-    //TODO My Functions created in this
-    private fun showMessage(message: String) {
-        Toast.makeText(
-            this,
-            message,
-            Toast.LENGTH_SHORT
-        ).show()
-    }
-
-    private fun View.hideKeyBoard() {
-
-        // esconder teclado
-        val hideKeyBoard=getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        hideKeyBoard.hideSoftInputFromWindow(windowToken, 0)
-    }
-
-    private fun configEdts() {
-
         with(edtEmailLogin_ID) {
-            onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-                        if (hasFocus) {
-                            layoutParams = configLayoutParams(false)
-                        }
-                    }
             setOnClickListener {
-                layoutParams = configLayoutParams(false)
+                layoutParams=configLayoutParams(false)
             }
-
+            onFocusChangeListener=View.OnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    layoutParams=configLayoutParams(false)
+                }
+            }
         }
 
         with(edtSenhalLogin_ID) {
-
-            onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            setOnClickListener {
+                edtEmailLogin_ID.layoutParams=configLayoutParams(false)
+            }
+            onFocusChangeListener=View.OnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) {
                     configLayoutParams(false)
                 }
             }
-            setOnClickListener {
-                edtEmailLogin_ID.layoutParams = configLayoutParams(false)
-            }
-
         }
-
     }
 
-    private fun configLayoutParams(modify: Boolean): LinearLayout.LayoutParams {
+    //TODO My Functions created in this
+    private fun showMessage(message: String) {
+        Toast.makeText(this, message,
+            Toast.LENGTH_SHORT
+        ).show()
+    }
 
+    //esconderTeclado
+    private fun View.hideKeyBoard() {
+        val hideKeyBoard=getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        hideKeyBoard.hideSoftInputFromWindow(windowToken, 0)
+    }
+
+
+    private fun configLayoutParams(modify: Boolean): LinearLayout.LayoutParams {
+        var marginTop: Int
         val params: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
             ActionBar.LayoutParams.MATCH_PARENT,
             ActionBar.LayoutParams.WRAP_CONTENT
         )
-        var marginTop: Int
         when {
             modify -> {
                 showLogo()
@@ -158,8 +143,6 @@ class LoginActivity : AbstractActivity() {
             imageView.visibility = View.GONE
         }
     }
-
-
 }
 
 

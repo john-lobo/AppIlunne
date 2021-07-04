@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppIlunne">
         <activity
-            android:name=".ui.activity.main_home.MainHomeActivity"
+            android:name=".ui.activity.mainHome.MainHomeActivity"
             android:label="@string/title_activity_main_home"
             android:theme="@style/Theme.AppIlunne.NoActionBar" >
         </activity>

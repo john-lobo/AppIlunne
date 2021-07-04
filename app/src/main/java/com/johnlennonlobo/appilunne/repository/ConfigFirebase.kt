@@ -1,4 +1,4 @@
-package com.johnlennonlobo.appilunne.rest
+package com.johnlennonlobo.appilunne.repository
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
