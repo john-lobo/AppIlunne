@@ -1,10 +1,11 @@
-package com.johnlennonlobo.appilunne.model.data
+package com.johnlennonlobo.appilunne.presenter.login
 
 import android.content.Context
 import android.content.Intent
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.*
 import com.johnlennonlobo.appilunne.ui.activity.main_home.MainHomeActivity
-import com.johnlennonlobo.appilunne.presenter.login.LoginHome
 import com.johnlennonlobo.appilunne.utils.Constants.Companion.DELAY
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -12,10 +13,13 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
-class AppDataSource(val authentication: FirebaseAuth, val context: Context) {
+class LoginViewModel(val authentication: FirebaseAuth): ViewModel(){
+
+    val sucessMessage = MutableLiveData<String>()
+    val errorMessage = MutableLiveData<String>()
 
     fun getAuthentication(
-            calback: LoginHome.Presenter,
+            context: Context,
             email: String,
             senha: String,
             tipoAcesso: Boolean,
@@ -27,27 +31,27 @@ class AppDataSource(val authentication: FirebaseAuth, val context: Context) {
                     if (tipoAcesso) {
                         authentication.createUserWithEmailAndPassword(email, senha).addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                calback.onSuccess("Cadastro realizado com sucesso")
+                                sucessMessage.postValue("Usuario cadastrado com sucesso")
                             } else {
                                 try {
                                     throw task.exception!!
                                 } catch (error: FirebaseAuthWeakPasswordException) {
-                                    calback.onError("Digite uma senha mais forte")
+                                    errorMessage.postValue("Digite uma senha mais forte")
                                 } catch (error: FirebaseAuthInvalidCredentialsException) {
-                                    calback.onError("Digite um email valido")
+                                    errorMessage.postValue("Digite um email valido")
                                 } catch (error: FirebaseAuthUserCollisionException) {
-                                    calback.onError("Esta conta ja esta cadastrada")
+                                    errorMessage.postValue("Esta conta ja esta cadastrada")
                                 } catch (error: Exception) {
-                                    calback.onError("Erro ao cadastrar conta ${error.message}")
+                                    errorMessage.postValue("Erro ao cadastrar conta ${error.message}")
                                 }
 
                             }
-                            calback.onComplete()
+                        // calback.onComplete()
                         }
                     } else {
                         authentication.signInWithEmailAndPassword(email, senha).addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                calback.onSuccess("Usuario logado")
+                                sucessMessage.postValue("Usuario logado")
                                 val intent=Intent(context.applicationContext, MainHomeActivity
                                 ::class.java)
                                 context.startActivity(intent)
@@ -55,20 +59,18 @@ class AppDataSource(val authentication: FirebaseAuth, val context: Context) {
                                 try {
                                     throw task.exception!!
                                 } catch (error: Exception) {
-                                    calback.onError("Erro ao logar conta ${error.message}")
+                                    errorMessage.postValue("Erro ao logar conta ${error.message}")
                                 }
                             }
                         }
-                        calback.onComplete()
+
                     }
 
                 } else {
-                    calback.onIncompleteInfo("Preencha a senha!")
-                    calback.onComplete()
+                    errorMessage.postValue("Preencha a senha!")
                 }
             } else {
-                calback.onIncompleteInfo("Preencha o email!")
-                calback.onComplete()
+                errorMessage.postValue("Preencha o email!")
             }
         }
     }

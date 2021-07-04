@@ -1,18 +1,17 @@
 package com.johnlennonlobo.appilunne.ui.activity.login
 
 import android.app.ActionBar
-import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.johnlennonlobo.appilunne.R
-import com.johnlennonlobo.appilunne.model.data.AppDataSource
-import com.johnlennonlobo.appilunne.helper.ConfigFirebase
-import com.johnlennonlobo.appilunne.presenter.ViewHome
-import com.johnlennonlobo.appilunne.presenter.login.LoginPresenter
+import com.johnlennonlobo.appilunne.presenter.login.LoginViewModel
+import com.johnlennonlobo.appilunne.presenter.login.LoginViewModelFactory
+import com.johnlennonlobo.appilunne.rest.ConfigFirebase
 import com.johnlennonlobo.appilunne.ui.activity.AbstractActivity
 import com.johnlennonlobo.appilunne.utils.Constants.Companion.MARGIN_BOTTOM
 import com.johnlennonlobo.appilunne.utils.Constants.Companion.MARGIN_LEFT
@@ -20,65 +19,51 @@ import com.johnlennonlobo.appilunne.utils.Constants.Companion.MARGIN_RIGHT
 import kotlinx.android.synthetic.main.login_activity.*
 
 
-class LoginActivity : AbstractActivity(), ViewHome.View {
-    private lateinit var presenter: LoginPresenter
+class LoginActivity : AbstractActivity() {
+
     private lateinit var authentication: FirebaseAuth
+    private lateinit var viewModel: LoginViewModel
 
     //TODO implements AbstractActivity
     override fun getLayout(): Int =R.layout.login_activity
-
     override fun getObject() {
         supportActionBar?.hide()
-        authentication = ConfigFirebase
-                .getFirebaseAuthentication()
 
-        val dataSource = AppDataSource(authentication, this)
-        presenter = LoginPresenter(this, dataSource)
+        authentication = ConfigFirebase.getFirebaseAuthentication()
+        viewModel=ViewModelProvider(this, LoginViewModelFactory(authentication)).get(
+            LoginViewModel::class.java
+        )
+
         signOrRegister()
         configEdts()
-
     }
 
-    //TODO implements ViewHome.View
-    override fun showProgressBar() {
-        progressBarLoginID.visibility = View.VISIBLE
-    }
-
-    override fun hideProgressBar() {
-        progressBarLoginID.visibility = View.INVISIBLE
-    }
-
-    override fun showFailure(message: String) {
-        showMessage(message)
-    }
-
-    override fun showSuccess(message: String) {
-        showMessage(message)
-    }
-
-    //TODO My Functions created in this
-    private fun showMessage(message: String) {
-        Toast.makeText(
-            this,
-            message,
-            Toast.LENGTH_SHORT
-        ).show()
+    override fun onStart() {
+        super.onStart()
+        viewModel.sucessMessage.observe(this, Observer {
+            showMessage(it)
+        })
+        viewModel.errorMessage.observe(this, Observer {
+            showMessage(it)
+        })
     }
 
     private fun signOrRegister() {
         with(btnSignOrRegister){
             setOnClickListener {
+
                 val email = edtEmailLogin_ID.text.toString()
                 val senha = edtSenhalLogin_ID.text.toString()
                 val typeAccess = switch1.isChecked
 
-                presenter.request(email, senha, typeAccess)
+                viewModel.getAuthentication(this@LoginActivity,email, senha, typeAccess)
 
                 edtEmailLogin_ID.layoutParams = configLayoutParams(true)
                 hideKeyBoard()
 
             }
         }
+
         with(switch1){
             setOnClickListener {
 
@@ -94,6 +79,15 @@ class LoginActivity : AbstractActivity(), ViewHome.View {
 
         }
 
+    }
+
+    //TODO My Functions created in this
+    private fun showMessage(message: String) {
+        Toast.makeText(
+            this,
+            message,
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     private fun View.hideKeyBoard() {
