@@ -3,7 +3,6 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-android-extensions'
     id 'com.google.gms.google-services'
-    id 'org.jetbrains.dokka'
     id 'kotlin-kapt'
 }
 
@@ -11,6 +10,9 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
+    viewBinding {
+        enabled = true
+    }
 
     defaultConfig {
         applicationId "com.johnlennonlobo.appilunne"
@@ -39,6 +41,7 @@ android {
         viewBinding = true
     }
 }
+
 
 dependencies {
 
@@ -72,15 +75,7 @@ dependencies {
     //ViewModel e Livedata - Dependências para MVVM
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
 
-    //dokka
-    dokkaHtmlPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.4.32")
-    dokkaGfmPlugin("org.jetbrains.dokka:kotlin-as-java-plugin:1.4.32")
-    dokkaHtml.configure {
-        dokkaSourceSets {
-            named("main") {
-                noAndroidSdkLink.set(false)
-            }
-        }
-    }
+    //
+    implementation 'com.squareup.picasso:picasso:2.71828'
     
 }

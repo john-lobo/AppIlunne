@@ -1,4 +1,6 @@
 package com.johnlennonlobo.appilunne.model
 
-class Usuario {
-}
+data class Usuario(
+     var email:String= "",
+     var senha:String= ""
+)

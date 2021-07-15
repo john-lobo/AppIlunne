@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.activity.login.LoginActivity">
+    tools:context=".ui.activity.login.AuthActivity">
 
     <include
         android:id="@+id/include"
@@ -27,7 +27,7 @@
         app:layout_constraintTop_toBottomOf="@+id/include">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/imageLogoID"
             android:layout_width="140dp"
             android:layout_height="130dp"
             android:layout_gravity="center"
@@ -77,7 +77,7 @@
                 android:text="@string/logar" />
 
             <Switch
-                android:id="@+id/switch1"
+                android:id="@+id/selectTypeAccessID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"

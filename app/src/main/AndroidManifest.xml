@@ -16,7 +16,7 @@
         </activity>
 
         <activity
-            android:name="com.johnlennonlobo.appilunne.ui.activity.login.LoginActivity"/>
+            android:name="com.johnlennonlobo.appilunne.ui.activity.login.AuthActivity"/>
 
         <activity
             android:name="com.johnlennonlobo.appilunne.ui.activity.splash.SplashActivity">
