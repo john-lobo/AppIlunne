@@ -12,6 +12,7 @@ import java.lang.Exception
 class AuthDataSource {
 
     companion object {
+
         private val auth: FirebaseAuth=ConfigFirebase.getFirebaseAuthentication()
 
         fun loginUser(usuario: Usuario, callBack: AuthResponse) {

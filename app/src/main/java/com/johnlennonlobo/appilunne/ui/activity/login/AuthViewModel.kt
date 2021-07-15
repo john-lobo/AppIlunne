@@ -40,7 +40,6 @@ class AuthViewModel() : ViewModel(), AuthResponse {
                             usuario, this@AuthViewModel)
                     }
 
-
                 } else {
                     onFailure("Preencha a senha!")
                 }
@@ -51,6 +50,7 @@ class AuthViewModel() : ViewModel(), AuthResponse {
         }
 
     }
+
 
     override fun hideProgressBar(hide:Boolean) {
         mHideProgressBar.postValue(hide)

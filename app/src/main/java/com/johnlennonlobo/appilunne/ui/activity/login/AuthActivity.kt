@@ -3,13 +3,17 @@ package com.johnlennonlobo.appilunne.ui.activity.login
 import android.app.ActionBar
 import android.content.Intent
 import android.view.View
+import android.widget.CompoundButton
 import android.widget.LinearLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.johnlennonlobo.appilunne.databinding.AuthActivityBinding
 
 import com.johnlennonlobo.appilunne.model.Usuario
+import com.johnlennonlobo.appilunne.network.ConfigFirebase
 import com.johnlennonlobo.appilunne.ui.activity.AbstractActivity
 import com.johnlennonlobo.appilunne.ui.activity.mainHome.MainHomeActivity
 import com.johnlennonlobo.appilunne.utils.Constants.Companion.MARGIN_BOTTOM
@@ -22,6 +26,7 @@ class AuthActivity : AbstractActivity() {
     private lateinit var viewModel: AuthViewModel
     private lateinit var usuario: Usuario
     private lateinit var binding: AuthActivityBinding
+    private lateinit var authentication: FirebaseAuth
 
     //TODO implements AbstractActivity
     override fun getLayout(): ViewBinding {
@@ -30,6 +35,10 @@ class AuthActivity : AbstractActivity() {
     }
 
     override fun getObject() {
+        authentication = ConfigFirebase.getFirebaseAuthentication()
+       // authentication.signOut() // deslogar usuario
+       // verifyUsuLog()
+
         supportActionBar?.hide()
         actionViews()
 
@@ -45,6 +54,23 @@ class AuthActivity : AbstractActivity() {
             })
         }
 
+
+    }
+
+//    fun verifyUsuLog(){
+//        val user: FirebaseUser? = authentication.currentUser
+//        if(user != null){
+//            openMainHome()
+//        }
+//    }
+
+    private fun openMainHome() {
+        val intent=Intent(
+            this@AuthActivity.applicationContext, MainHomeActivity
+            ::class.java
+        )
+        this@AuthActivity.startActivity(intent)
+        finish()
     }
 
     private fun actionViews() {
@@ -67,12 +93,7 @@ class AuthActivity : AbstractActivity() {
 
                     loginSuccess.observe(this@AuthActivity, Observer {
                         if (it) {
-                            val intent=Intent(
-                                context.applicationContext, MainHomeActivity
-                                ::class.java
-                            )
-                            this@AuthActivity.startActivity(intent)
-                            finish()
+                            openMainHome()
                         }
                     })
 
@@ -90,7 +111,7 @@ class AuthActivity : AbstractActivity() {
         }
 
         with(binding.selectTypeAccessID) {
-            setOnClickListener {
+            setOnCheckedChangeListener { _, isChecked ->
                 hideKeyBoard()
                 when {
                     isChecked -> {
@@ -101,6 +122,7 @@ class AuthActivity : AbstractActivity() {
                     }
                 }
             }
+
         }
 
         with(binding.edtEmailLoginID) {
@@ -127,7 +149,6 @@ class AuthActivity : AbstractActivity() {
     }
 
     //TODO My Functions created in this
-
     private fun configLayoutParams(modify: Boolean): LinearLayout.LayoutParams {
         var marginTop: Int
         val params: LinearLayout.LayoutParams=LinearLayout.LayoutParams(

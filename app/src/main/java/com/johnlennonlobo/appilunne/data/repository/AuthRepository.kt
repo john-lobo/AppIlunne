@@ -8,6 +8,7 @@ import com.johnlennonlobo.appilunne.ui.activity.login.AuthResponse
 class AuthRepository {
 
     companion object {
+
         fun login(
             usuario: Usuario,
             callBack: AuthResponse) = AuthDataSource.loginUser(usuario,callBack)
