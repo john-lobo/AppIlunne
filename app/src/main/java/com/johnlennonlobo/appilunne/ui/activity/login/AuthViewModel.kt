@@ -22,9 +22,6 @@ class AuthViewModel() : ViewModel(), AuthResponse {
     private val mHideProgressBar=MutableLiveData<Boolean>()
     val hideProgressBar=mHideProgressBar
 
-     private val mLoginSuccess=MutableLiveData<Boolean>()
-    val loginSuccess=mLoginSuccess
-
     fun getAuthentication(tipoAcesso: Boolean, usuario: Usuario) {
         hideProgressBar(false)
         GlobalScope.launch(Dispatchers.Main) {
@@ -58,7 +55,6 @@ class AuthViewModel() : ViewModel(), AuthResponse {
 
     override fun onSuccess(message: String) {
         mSucessMessage.postValue(message)
-        mLoginSuccess.postValue(true)
         hideProgressBar(true)
     }
 

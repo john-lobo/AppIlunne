@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">App Ilunne</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="logar">Logar</string>
     <string name="cadastre_se">Cadastre-se</string>
     <string name="access">Acessar</string>
+
     <string name="title_activity_main_home">MainHomeActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

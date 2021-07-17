@@ -9,10 +9,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
 import com.johnlennonlobo.appilunne.network.ConfigFirebase
 
 abstract class AbstractActivity: AppCompatActivity(), BasicActions {
 
+    lateinit var authentication: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +22,7 @@ abstract class AbstractActivity: AppCompatActivity(), BasicActions {
 
         //TODO é necessario iniciar a autenticação em algum onCreate pelo menos uma vez,
         // para poder usar ele posteriormente
-        ConfigFirebase.getFirebaseAuthentication()
+        authentication = ConfigFirebase.getFirebaseAuthentication()
         getObject()
 
     }
@@ -30,12 +32,6 @@ abstract class AbstractActivity: AppCompatActivity(), BasicActions {
     abstract fun getObject()
 
     override fun showMessage(message: String) {
-        // TODO alert esta vazando janela
-//        AlertDialog.Builder(this)
-//            .setMessage(message)
-//            .setPositiveButton("OK") { _, _ ->
-//                // User clicked OK button
-//            }.show()
 
         Toast.makeText(
             this, message,

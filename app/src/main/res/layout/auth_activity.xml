@@ -29,48 +29,20 @@
         <ImageView
             android:id="@+id/imageLogoID"
             android:layout_width="140dp"
-            android:layout_height="130dp"
+            android:layout_height="120dp"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
             android:src="@drawable/logo" />
-
-        <EditText
-
-            android:id="@+id/edtEmailLogin_ID"
-            style="@style/style_edit_text"
-            android:drawableRight="@drawable/ic_email"
-            android:hint="Email"
-            android:inputType="textEmailAddress" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:boxBackgroundMode="none"
-            app:hintEnabled="false"
-            app:passwordToggleDrawable="@drawable/show_password_selector"
-            app:passwordToggleEnabled="true">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edtSenhalLogin_ID"
-                style="@style/style_edit_text"
-                android:hint="Senha"
-                android:inputType="textPassword"
-
-                app:passwordToggleEnabled="true" />
-        </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center|right"
@@ -85,11 +57,45 @@
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/cadastre_se" />
         </LinearLayout>
+
+        <EditText
+
+            android:id="@+id/edtNomeLogin_ID"
+            style="@style/style_edit_text"
+            android:drawableRight="@drawable/ic_person"
+            android:hint="Nome"
+            android:inputType="textEmailAddress"
+            android:visibility="gone"
+            />
+
+        <EditText
+            android:id="@+id/edtEmailLogin_ID"
+            style="@style/style_edit_text"
+            android:drawableRight="@drawable/ic_email"
+            android:hint="Email"
+            android:inputType="textEmailAddress" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:boxBackgroundMode="none"
+            app:hintEnabled="false"
+            app:passwordToggleDrawable="@drawable/show_password_selector"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtSenhalLogin_ID"
+                style="@style/style_edit_text"
+                android:hint="Senha"
+                android:inputType="textPassword"
+                app:passwordToggleEnabled="true" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btnSignOrRegister"

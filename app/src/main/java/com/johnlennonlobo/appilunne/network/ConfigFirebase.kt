@@ -4,6 +4,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -12,21 +13,20 @@ class ConfigFirebase {
 
     companion object {
 
-        private lateinit var referenceFirebase: DatabaseReference
+        private lateinit var database: DatabaseReference
         private lateinit var referenceAuthentication: FirebaseAuth
         private lateinit var referenceStorage: StorageReference
 
+
         fun getUserId():String{
             val authentication = getFirebaseAuthentication()
-            return  authentication.currentUser?.uid as String
+            return  authentication.currentUser?.uid.toString()
         }
 
         //referencia do database
-        fun getFirebase(): DatabaseReference{
-            if(referenceFirebase == null){
-                referenceFirebase = FirebaseDatabase.getInstance().reference
-            }
-            return referenceFirebase
+        fun getDatabase(): DatabaseReference{
+                database = Firebase.database.reference
+            return database
         }
 
         // refencia do firebase
