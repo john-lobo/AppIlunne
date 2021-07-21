@@ -25,7 +25,6 @@ class AuthDataSource {
             auth.signInWithEmailAndPassword(usuario.email, usuario.senha)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-
                         val getUsuario = ConfigFirebase.getDatabase()
                             .child(CHILD_USUARIOS)
                             .child(CHILD_ID_UNICO)
@@ -64,7 +63,7 @@ class AuthDataSource {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
 
-                        var idUsuario = task.result?.user?.uid
+                        val idUsuario = task.result?.user?.uid
                         usuario.id = idUsuario!!
                         usuario.tipo = TIPO_USUARIO
 

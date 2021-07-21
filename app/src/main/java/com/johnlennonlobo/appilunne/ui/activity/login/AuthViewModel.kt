@@ -11,7 +11,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class AuthViewModel() : ViewModel(), AuthResponse {
+class AuthViewModel : ViewModel(), AuthResponse {
 
     private var mSucessMessage = MutableLiveData<String>()
     val sucessMessage = mSucessMessage
