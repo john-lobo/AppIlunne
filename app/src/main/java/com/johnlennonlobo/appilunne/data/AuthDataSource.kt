@@ -4,10 +4,16 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.johnlennonlobo.appilunne.model.Usuario
 import com.johnlennonlobo.appilunne.network.ConfigFirebase
 import com.johnlennonlobo.appilunne.ui.activity.login.AuthResponse
-import java.lang.Exception
+import com.johnlennonlobo.appilunne.utils.Constants.Companion.CHILD_ID_UNICO
+import com.johnlennonlobo.appilunne.utils.Constants.Companion.CHILD_NOME
+import com.johnlennonlobo.appilunne.utils.Constants.Companion.CHILD_USUARIOS
+import com.johnlennonlobo.appilunne.utils.Constants.Companion.TIPO_USUARIO
 
 class AuthDataSource {
 
@@ -19,7 +25,29 @@ class AuthDataSource {
             auth.signInWithEmailAndPassword(usuario.email, usuario.senha)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        callBack.onSuccess("Usuario logado")
+
+                        val getUsuario = ConfigFirebase.getDatabase()
+                            .child(CHILD_USUARIOS)
+                            .child(CHILD_ID_UNICO)
+                            .child(CHILD_NOME)
+
+                        getUsuario.addValueEventListener(object : ValueEventListener{
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                val nomeUsuario = snapshot.value.toString()
+                                if(nomeUsuario == "null"){
+                                    callBack.onSuccess("Bem vindo")
+                                }else{
+                                    callBack.onSuccess("Bem vindo $nomeUsuario")
+                                }
+
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                TODO("Not yet implemented")
+                            }
+
+                        })
+
                     } else {
                         try {
                             throw task.exception!!
@@ -35,7 +63,15 @@ class AuthDataSource {
             auth.createUserWithEmailAndPassword(usuario.email, usuario.senha)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
+
+                        var idUsuario = task.result?.user?.uid
+                        usuario.id = idUsuario!!
+                        usuario.tipo = TIPO_USUARIO
+
+                        usuario.salvar()
+
                         callBack.onSuccess("Usuario cadastrado com sucesso")
+
                     } else {
                         try {
                             throw task.exception!!
