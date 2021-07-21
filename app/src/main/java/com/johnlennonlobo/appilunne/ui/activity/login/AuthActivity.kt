@@ -3,14 +3,10 @@ package com.johnlennonlobo.appilunne.ui.activity.login
 import android.content.Intent
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
-import com.google.firebase.auth.FirebaseAuth
 import com.johnlennonlobo.appilunne.databinding.AuthActivityBinding
-
 import com.johnlennonlobo.appilunne.model.Usuario
-import com.johnlennonlobo.appilunne.network.ConfigFirebase
 import com.johnlennonlobo.appilunne.ui.activity.AbstractActivity
 import com.johnlennonlobo.appilunne.ui.activity.mainHome.MainHomeActivity
 
@@ -39,7 +35,7 @@ class AuthActivity : AbstractActivity() {
             AuthViewModel::class.java
         )
         with(viewModel){
-            sucessMessage.observe(this@AuthActivity, Observer {
+            sucessMessage.observe(this@AuthActivity,{
                 AlertDialog.Builder(this@AuthActivity)
                     .setTitle("Sucesso")
                     .setMessage(it)
@@ -47,7 +43,7 @@ class AuthActivity : AbstractActivity() {
                         openMainHome()
                     }.show()
             })
-            errorMessage.observe(this@AuthActivity, Observer {
+            errorMessage.observe(this@AuthActivity, {
                 showMessage(it)
             })
         }
@@ -73,7 +69,7 @@ class AuthActivity : AbstractActivity() {
                 with(viewModel) {
                     getAuthentication(typeAccess, usuario)
 
-                    hideProgressBar.observe(this@AuthActivity, Observer {
+                    hideProgressBar.observe(this@AuthActivity, {
                         if (it) {
                             binding.progressBarLoginID.visibility=View.INVISIBLE
                         }else{

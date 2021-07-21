@@ -15,7 +15,7 @@ class Usuario(
      fun salvar() {
           val database = ConfigFirebase.getDatabase()
           database.child(CHILD_USUARIOS)
-               .child("$id")
+               .child(id)
                .setValue(this)
 
      }
